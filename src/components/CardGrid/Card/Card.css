@@ -1,0 +1,12 @@
+.Card {
+    box-shadow: 0 1px 5px #555;
+    width: 170px;
+    height: 200px;
+    border: 2px solid gray;
+    cursor:pointer;
+    margin: 0 auto;
+    font-size: 8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
