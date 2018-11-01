@@ -6,7 +6,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1 className="App-title">Memoji</h1>
+        <h1 className="App-title">Memojis</h1>
         <header className="App-header">
             <CardGrid/>
         </header>
