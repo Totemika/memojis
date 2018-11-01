@@ -5,7 +5,7 @@ Just a pet project meant to try some things out.
 
 [x] Use create-react-app with `--typescript` option.
 
-[] Try Cypress
+[x] Try Cypress
 
 [] Check and implement accessibility 
 
