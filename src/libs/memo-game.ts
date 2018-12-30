@@ -30,6 +30,26 @@ export class MemoGame {
         this.state = { tiles: this.generateTiles()};
     }
 
+
+    getTileAt(index: number): Tile{
+      return this.state.tiles[index];
+    };
+
+    getTiles (): Tile[]{
+        return this.state.tiles;
+    };
+
+    facingUpTiles = ():Tile[]=>(this.state.tiles.filter(tile=> tile.facing === Facing.UP));
+
+    isFinished() {
+      return this.state.tiles.length === this.facingUpTiles().length;
+    };
+
+    flip(tile: Tile){
+        const tileIndex = this.state.tiles.indexOf(tile);
+        this.state.tiles[tileIndex].flip();
+    }
+
     private generateTiles = () => {
         let tiles: Tile[] = [];
         for(let i=1; i<=this.symbolDiversity; i++){
@@ -39,21 +59,7 @@ export class MemoGame {
         return tiles;
     };
 
-    public getTileAt = (index: number): Tile => {
-      return this.state.tiles[index];
-    };
-    public getTiles = (): Tile[] => {
-        return this.state.tiles;
-    };
+    check() {
 
-    public facingUpTiles = ():Tile[]=>(this.state.tiles.filter(tile=> tile.facing === Facing.UP));
-
-    public isFinished = ()=>{
-      return this.state.tiles.length === this.facingUpTiles().length;
-    };
-
-    flip(tile: Tile) {
-        const tileIndex = this.state.tiles.indexOf(tile);
-        this.state.tiles[tileIndex].flip();
     }
 }

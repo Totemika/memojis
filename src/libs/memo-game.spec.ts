@@ -46,5 +46,20 @@ describe('For a game with one symbol', () => {
     });
 });
 
+describe('For a game with two symbols', () => {
+    it('should face down all tiles after flipping two tiles with different symbols', () => {
+        const memoGame = new MemoGame(2);
+        const aTile = memoGame.getTiles()[0];
+        const aTileWithDifferentSymbol = memoGame.getTiles().filter(tile => tile.symbol !== aTile.symbol)[0];
+
+        memoGame.flip(aTile);
+        memoGame.flip(aTileWithDifferentSymbol);
+        memoGame.check();
+        const facingUp = memoGame.getTiles().filter(tile =>tile.facing === Facing.UP);
+
+        expect(facingUp.length).toBe(0)
+    });
+});
+
 // Random value equal or higher than 0 and lower than `limit`
 const getRandomValidIndex = (limit: number) => Math.floor(Math.random() * limit);
