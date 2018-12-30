@@ -25,7 +25,7 @@ describe('Game setup', () => {
     it('should face up a given tile', () => {
         const memoGame = new MemoGame();
         const randomValidIndex = getRandomValidIndex(DEFAULT_SYMBOL_DIVERSITY);
-        const randomTile = memoGame.getTiles()[randomValidIndex];
+        const randomTile = memoGame.getTileAt(randomValidIndex);
         const previousFacing = randomTile.facing;
 
         memoGame.flip(randomTile);

@@ -18,18 +18,16 @@ export class Tile {
 }
 
 export interface MemoGameState {
-    isFinished: boolean;
+    tiles: Tile[];
 }
 
 export class MemoGame {
     public static DEFAULT_SYMBOL_DIVERSITY = 5;
-    private readonly tiles: Tile[];
     private state: MemoGameState;
 
     constructor(public readonly symbolDiversity: number = MemoGame.DEFAULT_SYMBOL_DIVERSITY) {
         this.symbolDiversity = symbolDiversity || MemoGame.DEFAULT_SYMBOL_DIVERSITY;
-        this.tiles = this.generateTiles();
-        this.state = { isFinished: false };
+        this.state = { tiles: this.generateTiles()};
     }
 
     private generateTiles = () => {
@@ -41,14 +39,21 @@ export class MemoGame {
         return tiles;
     };
 
+    public getTileAt = (index: number): Tile => {
+      return this.state.tiles[index];
+    };
     public getTiles = (): Tile[] => {
-        return this.tiles;
+        return this.state.tiles;
     };
 
-    public isFinished = ()=>(this.state.isFinished);
+    public facingUpTiles = ():Tile[]=>(this.state.tiles.filter(tile=> tile.facing === Facing.UP));
+
+    public isFinished = ()=>{
+      return this.state.tiles.length === this.facingUpTiles().length;
+    };
 
     flip(tile: Tile) {
-        const tileIndex = this.tiles.indexOf(tile);
-        this.tiles[tileIndex].flip();
+        const tileIndex = this.state.tiles.indexOf(tile);
+        this.state.tiles[tileIndex].flip();
     }
 }
