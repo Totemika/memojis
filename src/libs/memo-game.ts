@@ -17,13 +17,19 @@ export class Tile {
     }
 }
 
+export interface MemoGameState {
+    isFinished: boolean;
+}
+
 export class MemoGame {
     public static DEFAULT_SYMBOL_DIVERSITY = 5;
     private readonly tiles: Tile[];
+    private state: MemoGameState;
 
     constructor(public readonly symbolDiversity: number = MemoGame.DEFAULT_SYMBOL_DIVERSITY) {
         this.symbolDiversity = symbolDiversity || MemoGame.DEFAULT_SYMBOL_DIVERSITY;
         this.tiles = this.generateTiles();
+        this.state = { isFinished: false };
     }
 
     private generateTiles = () => {
@@ -38,6 +44,8 @@ export class MemoGame {
     public getTiles = (): Tile[] => {
         return this.tiles;
     };
+
+    public isFinished = ()=>(this.state.isFinished);
 
     flip(tile: Tile) {
         const tileIndex = this.tiles.indexOf(tile);

@@ -1,5 +1,6 @@
 import {Facing, MemoGame, Tile} from "./memo-game";
 
+
 describe('Game setup', () => {
     const DEFAULT_SYMBOL_DIVERSITY = MemoGame.DEFAULT_SYMBOL_DIVERSITY;
 
@@ -23,10 +24,27 @@ describe('Game setup', () => {
 
     it('should face up a given tile', () => {
         const memoGame = new MemoGame();
-        const thirdTile = memoGame.getTiles()[3];
+        const randomValidIndex = getRandomValidIndex(DEFAULT_SYMBOL_DIVERSITY);
+        const randomTile = memoGame.getTiles()[randomValidIndex];
+        const previousFacing = randomTile.facing;
 
-        memoGame.flip(thirdTile);
+        memoGame.flip(randomTile);
 
-        expect(memoGame.getTiles()[3].facing).toBe(Facing.UP);
+        expect(previousFacing).toBe(Facing.DOWN);
+        expect(memoGame.getTiles()[randomValidIndex].facing).toBe(Facing.UP);
     });
 });
+
+describe('For a game with one symbol', () => {
+    it('should win when flipping the only two tiles', () => {
+        const memoGame = new MemoGame(1);
+
+        memoGame.flip(memoGame.getTiles()[0]);
+        memoGame.flip(memoGame.getTiles()[1]);
+
+        expect(memoGame.isFinished()).toBe(true);
+    });
+});
+
+// Random value equal or higher than 0 and lower than `limit`
+const getRandomValidIndex = (limit: number) => Math.floor(Math.random() * limit);
