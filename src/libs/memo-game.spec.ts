@@ -55,9 +55,8 @@ describe('For a game with two symbols', () => {
         memoGame.flip(aTile);
         memoGame.flip(aTileWithDifferentSymbol);
         memoGame.check();
-        const facingUp = memoGame.getTiles().filter(tile =>tile.facing === Facing.UP);
 
-        expect(facingUp.length).toBe(0)
+        expect(memoGame.facingUpTiles().length).toBe(0)
     });
 });
 

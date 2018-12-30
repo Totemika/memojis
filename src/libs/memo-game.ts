@@ -19,6 +19,7 @@ export class Tile {
 
 export interface MemoGameState {
     tiles: Tile[];
+    checkingTiles: Tile[];
 }
 
 export class MemoGame {
@@ -27,7 +28,7 @@ export class MemoGame {
 
     constructor(public readonly symbolDiversity: number = MemoGame.DEFAULT_SYMBOL_DIVERSITY) {
         this.symbolDiversity = symbolDiversity || MemoGame.DEFAULT_SYMBOL_DIVERSITY;
-        this.state = { tiles: this.generateTiles()};
+        this.state = { tiles: this.generateTiles(), checkingTiles: [] };
     }
 
 
@@ -47,7 +48,26 @@ export class MemoGame {
 
     flip(tile: Tile){
         const tileIndex = this.state.tiles.indexOf(tile);
-        this.state.tiles[tileIndex].flip();
+        const theTile = this.state.tiles[tileIndex];
+        theTile.flip();
+
+        if(theTile.facing === Facing.UP) {
+            this.state.checkingTiles.push(theTile);
+        }
+    }
+
+    check() {
+        if(this.state.checkingTiles.length === 2) {
+            const first = this.state.checkingTiles[0];
+            const second = this.state.checkingTiles[1];
+            const areEqual = first.symbol === second.symbol;
+
+            if(!areEqual) {
+                this.flip(first);
+                this.flip(second);
+                this.state.checkingTiles = [];
+            }
+        }
     }
 
     private generateTiles = () => {
@@ -58,8 +78,4 @@ export class MemoGame {
         }
         return tiles;
     };
-
-    check() {
-
-    }
 }
