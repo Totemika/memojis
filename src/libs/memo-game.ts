@@ -1,21 +1,5 @@
-export enum Facing {
-    UP,
-    DOWN
-}
-
-export class Tile {
-    public readonly symbol: number;
-    public facing : Facing;
-
-    constructor(symbol: number){
-        this.symbol = symbol;
-        this.facing = Facing.DOWN;
-    }
-
-    public flip(){
-        this.facing = this.facing === Facing.DOWN ? Facing.UP : Facing.DOWN;
-    }
-}
+import {Facing, Tile} from "./Tile";
+import {Tiles} from "./Tiles";
 
 export interface MemoGameState {
     tiles: Tile[];
@@ -39,6 +23,10 @@ export class MemoGame {
     getTiles (): Tile[]{
         return this.state.tiles;
     };
+
+    getTiles2(): Tiles {
+        return new Tiles(this.state.tiles);
+    }
 
     facingUpTiles = ():Tile[]=>(this.state.tiles.filter(tile=> tile.facing === Facing.UP));
 
