@@ -17,4 +17,15 @@ describe('Initial render', () => {
         const facingUpCards = cards.findWhere(card=> card.prop('isFacingUp') === true);
         expect(facingUpCards.length).toBe(0)
     });
+    it('should face up a card when clicked', () => {
+        const cardBeforeClick = wrapper.find('Card').first();
+        const onClick = cardBeforeClick.prop('onClick');
+        if(onClick){
+            const aMouseEvent = {} as any; // TODO: Review..
+            onClick(aMouseEvent);
+        }
+        expect(onClick).toBeDefined();
+        const cardAfterClick = wrapper.find('Card').first();
+        expect(cardAfterClick.prop('isFacingUp')).toBe(true);
+    });
 });
