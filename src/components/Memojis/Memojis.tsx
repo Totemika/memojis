@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import './App.css';
-import CardGrid from "./components/CardGrid/CardGrid";
+import './Memojis.css';
+import CardGrid from "../CardGrid/CardGrid";
 
-class App extends Component {
+class Memojis extends Component {
     availableSymbols: string[] = ["🤫", "🤪", "🙂", "🙃", "😏"];
     contentCollection: string[] = [];
 
@@ -27,4 +27,4 @@ const shuffleArray = (arr: any[]) => arr
     .sort((a, b) => a[0] - b[0])
     .map(a => a[1]);
 
-export default App;
+export default Memojis;
