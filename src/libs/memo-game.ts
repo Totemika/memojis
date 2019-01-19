@@ -18,11 +18,17 @@ export class MemoGame {
       return this.state.tiles[index];
     };
 
+    getTileById(id: number): Tile {
+        return this.state.tiles.filter(tile=> tile.id === id)[0];
+    }
+
     getTiles (): Tile[]{
         return this.state.tiles;
     };
 
     facingUpTiles = ():Tile[]=>(this.state.tiles.filter(tile=> tile.isFacingUp()));
+
+    facingDownTiles = ():Tile[]=>(this.state.tiles.filter(tile=> tile.isFacingDown()));
 
     isFinished() {
       return this.state.tiles.length === this.facingUpTiles().length;

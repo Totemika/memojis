@@ -7,32 +7,31 @@ describe('Game setup', () => {
 
     it('should return all the tiles', () => {
         const aSymbolDiversity = 6;
-        const memoGame = new MemoGame(aSymbolDiversity);
+        const aMemoGame = new MemoGame(aSymbolDiversity);
 
-        expect(memoGame.getTiles().length).toBe(aSymbolDiversity*2);
+        expect(aMemoGame.getTiles().length).toBe(aSymbolDiversity*2);
     });
 
     it('all the tiles should be facing down', () => {
-        const memoGame = new MemoGame();
-        const allTiles = memoGame.getTiles();
+        const aMemoGame = new MemoGame();
 
-        const facingUp = allTiles.filter(tile => tile.isFacingUp());
-        const facingDown = allTiles.filter(tile => tile.isFacingDown());
+        const facingUpTiles = aMemoGame.facingUpTiles();
+        const facingDownTiles = aMemoGame.facingDownTiles();
 
-        expect(facingUp.length).toBe(0);
-        expect(facingDown.length).toBe(DEFAULT_SYMBOL_DIVERSITY*2);
+        expect(facingUpTiles.length).toBe(0);
+        expect(facingDownTiles.length).toBe(DEFAULT_SYMBOL_DIVERSITY*2);
     });
 
     it('should face up a given tile', () => {
-        const memoGame = new MemoGame();
-        const randomValidIndex = getRandomValidIndex(DEFAULT_SYMBOL_DIVERSITY);
-        const randomTile = memoGame.getTileAt(randomValidIndex);
+        const aMemoGame = new MemoGame();
+        const randomTile = getRandomTileFrom(aMemoGame);
         const previousFacing = randomTile.facing;
 
-        memoGame.faceUp(randomTile);
+        aMemoGame.faceUp(randomTile);
+        const theRandomTile = aMemoGame.getTileById(randomTile.id);
 
         expect(previousFacing).toBe(Facing.DOWN);
-        expect(memoGame.getTiles()[randomValidIndex].facing).toBe(Facing.UP);
+        expect(theRandomTile.facing).toBe(Facing.UP);
     });
 });
 
@@ -40,8 +39,8 @@ describe('For a game with one symbol', () => {
     it('should win when flipping the only two tiles', () => {
         const memoGame = new MemoGame(1);
 
-        memoGame.faceUp(memoGame.getTiles()[0]);
-        memoGame.faceUp(memoGame.getTiles()[1]);
+        memoGame.faceUp(memoGame.getTileAt(0));
+        memoGame.faceUp(memoGame.getTileAt(1));
 
         expect(memoGame.isFinished()).toBe(true);
     });
@@ -51,8 +50,8 @@ describe('For a game with two symbols', () => {
 
     it('should face down all tiles after flipping two tiles with different symbols', () => {
         const memoGame = new MemoGame(2);
-        const aTile = memoGame.getTiles()[0];
-        const aTileWithDifferentSymbol = memoGame.getTiles().filter(tile => tile.symbol !== aTile.symbol)[0];
+        const aTile = memoGame.getTileAt(0);
+        const aTileWithDifferentSymbol = getTileWithDifferentSymbol(memoGame, aTile);
 
         memoGame.faceUp(aTile);
         memoGame.faceUp(aTileWithDifferentSymbol);
@@ -64,9 +63,7 @@ describe('For a game with two symbols', () => {
         const memoGame = new MemoGame(2);
         const aTile = memoGame.getTiles()[0];
         const aTileWithSameSymbol =
-            memoGame
-                .getTiles()
-                .filter(tile => tile.symbol === aTile.symbol)[1];
+            getTileWithSameSymbol(memoGame, aTile);
 
         memoGame.faceUp(aTile);
         memoGame.faceUp(aTileWithSameSymbol);
@@ -77,3 +74,14 @@ describe('For a game with two symbols', () => {
 
 // Random value equal or higher than 0 and lower than `limit`
 const getRandomValidIndex = (limit: number) => Math.floor(Math.random() * limit);
+const getRandomTileFrom = (memoGame: MemoGame): Tile => {
+    const randomValidIndex = getRandomValidIndex(memoGame.symbolDiversity);
+    return memoGame.getTileAt(randomValidIndex);
+};
+const getTileWithDifferentSymbol = (aMemoGame: MemoGame, aTile: Tile):Tile =>
+    aMemoGame
+        .getTiles()
+        .filter(tile => tile.symbol !== aTile.symbol)[0];
+const getTileWithSameSymbol = (aMemoGame: MemoGame, aTile:Tile) => aMemoGame
+    .getTiles()
+    .filter(tile => tile.symbol === aTile.symbol)[1];
