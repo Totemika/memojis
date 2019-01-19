@@ -61,14 +61,33 @@ describe('For a game with two symbols', () => {
 
     it('should leave facing up two tiles with same symbol', () => {
         const memoGame = new MemoGame(2);
-        const aTile = memoGame.getTiles()[0];
-        const aTileWithSameSymbol =
-            getTileWithSameSymbol(memoGame, aTile);
+        const aTile = memoGame.getTileAt(0);
+        const aTileWithSameSymbol = getTileWithSameSymbol(memoGame, aTile);
 
         memoGame.faceUp(aTile);
         memoGame.faceUp(aTileWithSameSymbol);
 
         expect(memoGame.facingUpTiles().length).toBe(2)
+    });
+
+    function getFacingDownTile(aMemoGame: MemoGame):Tile {
+        return aMemoGame.facingDownTiles()[0];
+    }
+
+    it('should leave facing up all tiles when solved', () => {
+        const memoGame = new MemoGame(2);
+        const aTile = memoGame.getTileAt(0);
+        const aTileWithSameSymbol = getTileWithSameSymbol(memoGame, aTile);
+
+        memoGame.faceUp(aTile);
+        memoGame.faceUp(aTileWithSameSymbol);
+
+        const aFacingDownTile = getFacingDownTile(memoGame);
+        memoGame.faceUp(aFacingDownTile);
+        const anotherFacingDownTile = getFacingDownTile(memoGame);
+        memoGame.faceUp(anotherFacingDownTile);
+
+        expect(memoGame.facingUpTiles().length).toBe(memoGame.symbolDiversity*2);
     });
 });
 
