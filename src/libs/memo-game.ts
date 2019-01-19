@@ -1,4 +1,4 @@
-import {Facing, Tile} from "./Tile";
+import {Tile} from "./Tile";
 
 export interface MemoGameState {
     tiles: Tile[];
@@ -45,7 +45,6 @@ export class MemoGame {
             }
         }
     }
-
 
     private check() {
         if(this.state.checkingTiles.length === 2) {
