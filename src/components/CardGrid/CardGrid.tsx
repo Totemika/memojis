@@ -1,9 +1,12 @@
 import React, {Component, ReactNodeArray} from 'react';
 import './CardGrid.css';
 import Card from "./Card/Card";
+import {CardVM} from "./Card/CardVM";
+
 
 interface CardGridProps {
-    contentCollection: string[];
+    contentCollection: CardVM[];
+    onCardClicked: (cardId: number)=> void;
 }
 
 class CardGrid extends Component<CardGridProps> {
@@ -17,8 +20,12 @@ class CardGrid extends Component<CardGridProps> {
 
   public renderCards(){
       return (
-          this.props.contentCollection.map( (content:string, index: number)=>{
-              return <Card key={index} content={content}/>
+          this.props.contentCollection.map( (cardVM: CardVM, index: number)=>{
+              return <Card id={cardVM.id}
+                           isFacingUp={cardVM.isFacingUp}
+                           key={index}
+                           content={cardVM.content}
+                           onClick={this.props.onCardClicked}/>
           })
       );
   }
