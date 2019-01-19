@@ -1,5 +1,4 @@
-import {MemoGame} from "./memo-game";
-import {Facing, Tile} from "./Tile";
+import {Facing, MemoGame, Tile} from "./memo-game";
 
 
 describe('Game setup', () => {
@@ -14,10 +13,13 @@ describe('Game setup', () => {
 
     it('all the tiles should be facing down', () => {
         const memoGame = new MemoGame();
-        const allTiles = memoGame.getTiles2();
+        const allTiles = memoGame.getTiles();
 
-        expect(allTiles.facingUPCount()).toBe(0);
-        expect(allTiles.facingDOWNCount()).toBe(DEFAULT_SYMBOL_DIVERSITY*2);
+        const facingUp = allTiles.filter(tile => tile.facing === Facing.UP);
+        const facingDown = allTiles.filter(tile => tile.facing === Facing.DOWN);
+
+        expect(facingUp.length).toBe(0);
+        expect(facingDown.length).toBe(DEFAULT_SYMBOL_DIVERSITY*2);
     });
 
     it('should face up a given tile', () => {
@@ -34,7 +36,7 @@ describe('Game setup', () => {
 });
 
 describe('For a game with one symbol', () => {
-    it('should win when facing up the only two tiles', () => {
+    it('should win when flipping the only two tiles', () => {
         const memoGame = new MemoGame(1);
 
         memoGame.flip(memoGame.getTiles()[0]);
@@ -54,8 +56,7 @@ describe('For a game with two symbols', () => {
         memoGame.flip(aTileWithDifferentSymbol);
         memoGame.check();
 
-        expect(memoGame.facingUpTiles().length).toBe(0);
-        expect(memoGame.isFinished()).toBe(false);
+        expect(memoGame.facingUpTiles().length).toBe(0)
     });
 });
 
