@@ -12,5 +12,9 @@ describe('Initial render', () => {
         const cards = wrapper.find('Card');
         expect(cards.length).toEqual(MemoGame.DEFAULT_SYMBOL_DIVERSITY*2);
     });
-
+    it('should render all cards facing down', () => {
+        const cards = wrapper.find('Card');
+        const facingUpCards = cards.findWhere(card=> card.prop('isFacingUp') === true);
+        expect(facingUpCards.length).toBe(0)
+    });
 });
