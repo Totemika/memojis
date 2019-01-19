@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './reset.css';
 import './index.css';
-import Memojis from './Components/Memojis/Memojis';
+import Memojis from './components/Memojis/Memojis';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<Memojis />, document.getElementById('root'));
