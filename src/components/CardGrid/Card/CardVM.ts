@@ -1,5 +1,7 @@
 import {Tile} from "../../../libs/Tile";
 
+const emojisCollection = ['☺️', '🤫', '🤪', '🤥', '😭', '🤢', '😧'];
+
 export interface CardVM {
     id: number;
     content: string;
@@ -9,7 +11,7 @@ export interface CardVM {
 export const fromTileToCardVM = (tile: Tile): CardVM => ({
     id: tile.id,
     isFacingUp: tile.isFacingUp(),
-    content: tile.symbol.toString()
+    content: emojisCollection[tile.symbol]
 });
 
 export const fromTilesToCardVM = (tiles: Tile[]) => tiles.map(fromTileToCardVM);
