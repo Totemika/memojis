@@ -22,7 +22,7 @@ export class MemoGame {
         return this.state.tiles;
     };
 
-    facingUpTiles = ():Tile[]=>(this.state.tiles.filter(tile=> tile.facing === Facing.UP));
+    facingUpTiles = ():Tile[]=>(this.state.tiles.filter(tile=> tile.isFacingUp()));
 
     isFinished() {
       return this.state.tiles.length === this.facingUpTiles().length;
@@ -33,7 +33,7 @@ export class MemoGame {
         const theTile = this.state.tiles[tileIndex];
         theTile.flip();
 
-        if(theTile.facing === Facing.UP) {
+        if(theTile.isFacingUp()) {
             this.state.checkingTiles.push(theTile);
         }
     }

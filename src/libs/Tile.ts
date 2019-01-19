@@ -12,6 +12,10 @@ export class Tile {
         this.facing = Facing.DOWN;
     }
 
+    public isFacingUp = () => this.facing === Facing.UP;
+
+    public isFacingDown = () => this.facing === Facing.DOWN;
+
     public flip() {
         this.facing = this.facing === Facing.DOWN ? Facing.UP : Facing.DOWN;
     }

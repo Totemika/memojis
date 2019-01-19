@@ -16,8 +16,8 @@ describe('Game setup', () => {
         const memoGame = new MemoGame();
         const allTiles = memoGame.getTiles();
 
-        const facingUp = allTiles.filter(tile => tile.facing === Facing.UP);
-        const facingDown = allTiles.filter(tile => tile.facing === Facing.DOWN);
+        const facingUp = allTiles.filter(tile => tile.isFacingUp());
+        const facingDown = allTiles.filter(tile => tile.isFacingDown());
 
         expect(facingUp.length).toBe(0);
         expect(facingDown.length).toBe(DEFAULT_SYMBOL_DIVERSITY*2);
