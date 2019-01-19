@@ -1,21 +1,31 @@
 import React, { Component } from 'react';
 import './Memojis.css';
 import CardGrid from "../CardGrid/CardGrid";
+import {MemoGame} from "../../libs/memo-game";
 
-class Memojis extends Component {
-    availableSymbols: string[] = ["🤫", "🤪", "🙂", "🙃", "😏"];
-    contentCollection: string[] = [];
+interface MemojisState {
+    contentCollection: string[];
+}
 
-  public componentWillMount(){
-      const pairs  = this.availableSymbols.concat(...this.availableSymbols);
-      this.contentCollection = shuffleArray(pairs);
+class Memojis extends React.Component<{},MemojisState> {
+
+  memoGame: MemoGame = new MemoGame();
+
+
+  constructor(props: any){
+      super(props);
+      this.state = {
+          contentCollection: this.memoGame.getTiles()
+                            .map(tile => tile.symbol.toString())
+      }
   }
+
   render() {
     return (
       <div className="App">
         <h1 className="App-title">Memojis</h1>
         <header className="App-header">
-            <CardGrid contentCollection={this.contentCollection}/>
+            <CardGrid contentCollection={this.state.contentCollection}/>
         </header>
       </div>
     );
