@@ -1,4 +1,5 @@
-import {Facing, MemoGame, Tile} from "./memo-game";
+import {MemoGame} from "./memo-game";
+import {Facing, Tile} from "./Tile";
 
 
 describe('Game setup', () => {

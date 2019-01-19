@@ -1,21 +1,4 @@
-export enum Facing {
-    UP,
-    DOWN
-}
-
-export class Tile {
-    public readonly symbol: number;
-    public facing : Facing;
-
-    constructor(symbol: number){
-        this.symbol = symbol;
-        this.facing = Facing.DOWN;
-    }
-
-    public flip(){
-        this.facing = this.facing === Facing.DOWN ? Facing.UP : Facing.DOWN;
-    }
-}
+import {Facing, Tile} from "./Tile";
 
 export interface MemoGameState {
     tiles: Tile[];
@@ -30,7 +13,6 @@ export class MemoGame {
         this.symbolDiversity = symbolDiversity || MemoGame.DEFAULT_SYMBOL_DIVERSITY;
         this.state = { tiles: this.generateTiles(), checkingTiles: [] };
     }
-
 
     getTileAt(index: number): Tile{
       return this.state.tiles[index];
@@ -76,6 +58,10 @@ export class MemoGame {
             tiles.push(new Tile(i));
             tiles.push(new Tile(i));
         }
-        return tiles;
+        return tiles
+            .map((a) =>
+                ({sort: Math.random(), value: a}))
+            .sort((a, b) => a.sort - b.sort)
+            .map((a) => a.value);
     };
 }
