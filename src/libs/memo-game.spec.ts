@@ -48,6 +48,7 @@ describe('For a game with one symbol', () => {
 });
 
 describe('For a game with two symbols', () => {
+
     it('should face down all tiles after flipping two tiles with different symbols', () => {
         const memoGame = new MemoGame(2);
         const aTile = memoGame.getTiles()[0];
@@ -57,6 +58,20 @@ describe('For a game with two symbols', () => {
         memoGame.faceUp(aTileWithDifferentSymbol);
 
         expect(memoGame.facingUpTiles().length).toBe(0)
+    });
+
+    it('should leave facing up two tiles with same symbol', () => {
+        const memoGame = new MemoGame(2);
+        const aTile = memoGame.getTiles()[0];
+        const aTileWithSameSymbol =
+            memoGame
+                .getTiles()
+                .filter(tile => tile.symbol === aTile.symbol)[1];
+
+        memoGame.faceUp(aTile);
+        memoGame.faceUp(aTileWithSameSymbol);
+
+        expect(memoGame.facingUpTiles().length).toBe(2)
     });
 });
 

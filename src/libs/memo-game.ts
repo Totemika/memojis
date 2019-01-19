@@ -29,8 +29,7 @@ export class MemoGame {
     };
 
     faceUp(tile: Tile){
-        const tileIndex = this.state.tiles.indexOf(tile);
-        const theTile = this.state.tiles[tileIndex];
+        const theTile= this.state.tiles.filter(item => item.id === tile.id)[0];
 
         if(theTile.isFacingDown()){
             theTile.flip();
@@ -59,19 +58,14 @@ export class MemoGame {
     private generateTiles = () => {
         let tiles: Tile[] = [];
         for(let i=1; i<=this.symbolDiversity; i++){
-            tiles.push(new Tile(i));
-            tiles.push(new Tile(i));
+            tiles.push(new Tile(i, tiles.length+1));
+            tiles.push(new Tile(i, tiles.length+1));
         }
-        return tiles
-            .map((a) =>
-                ({sort: Math.random(), value: a}))
-            .sort((a, b) => a.sort - b.sort)
-            .map((a) => a.value);
+        return tiles;
     };
 
     private flip(tile: Tile){
-        const tileIndex = this.state.tiles.indexOf(tile);
-        const theTile = this.state.tiles[tileIndex];
+        const theTile= this.state.tiles.filter(item => item.id === tile.id)[0];
 
         if(theTile){
             theTile.flip();

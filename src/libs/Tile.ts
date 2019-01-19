@@ -4,12 +4,14 @@ export enum Facing {
 }
 
 export class Tile {
+    public readonly id: number;
     public readonly symbol: number;
     public facing: Facing;
 
-    constructor(symbol: number) {
+    constructor(symbol: number, id: number) {
         this.symbol = symbol;
         this.facing = Facing.DOWN;
+        this.id = id;
     }
 
     public isFacingUp = () => this.facing === Facing.UP;
