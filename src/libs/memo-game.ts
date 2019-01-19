@@ -28,17 +28,21 @@ export class MemoGame {
       return this.state.tiles.length === this.facingUpTiles().length;
     };
 
-    flip(tile: Tile){
+    faceUp(tile: Tile){
         const tileIndex = this.state.tiles.indexOf(tile);
         const theTile = this.state.tiles[tileIndex];
-        theTile.flip();
 
-        if(theTile.isFacingUp()) {
+        if(theTile.isFacingDown()){
+            theTile.flip();
             this.state.checkingTiles.push(theTile);
+            if(this.state.checkingTiles.length===2){
+                this.check();
+            }
         }
     }
 
-    check() {
+
+    private check() {
         if(this.state.checkingTiles.length === 2) {
             const first = this.state.checkingTiles[0];
             const second = this.state.checkingTiles[1];
@@ -47,8 +51,8 @@ export class MemoGame {
             if(!areEqual) {
                 this.flip(first);
                 this.flip(second);
-                this.state.checkingTiles = [];
             }
+            this.state.checkingTiles = [];
         }
     }
 
@@ -64,4 +68,13 @@ export class MemoGame {
             .sort((a, b) => a.sort - b.sort)
             .map((a) => a.value);
     };
+
+    private flip(tile: Tile){
+        const tileIndex = this.state.tiles.indexOf(tile);
+        const theTile = this.state.tiles[tileIndex];
+
+        if(theTile){
+            theTile.flip();
+        }
+    }
 }

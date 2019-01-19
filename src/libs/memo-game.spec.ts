@@ -29,7 +29,7 @@ describe('Game setup', () => {
         const randomTile = memoGame.getTileAt(randomValidIndex);
         const previousFacing = randomTile.facing;
 
-        memoGame.flip(randomTile);
+        memoGame.faceUp(randomTile);
 
         expect(previousFacing).toBe(Facing.DOWN);
         expect(memoGame.getTiles()[randomValidIndex].facing).toBe(Facing.UP);
@@ -40,8 +40,8 @@ describe('For a game with one symbol', () => {
     it('should win when flipping the only two tiles', () => {
         const memoGame = new MemoGame(1);
 
-        memoGame.flip(memoGame.getTiles()[0]);
-        memoGame.flip(memoGame.getTiles()[1]);
+        memoGame.faceUp(memoGame.getTiles()[0]);
+        memoGame.faceUp(memoGame.getTiles()[1]);
 
         expect(memoGame.isFinished()).toBe(true);
     });
@@ -53,9 +53,8 @@ describe('For a game with two symbols', () => {
         const aTile = memoGame.getTiles()[0];
         const aTileWithDifferentSymbol = memoGame.getTiles().filter(tile => tile.symbol !== aTile.symbol)[0];
 
-        memoGame.flip(aTile);
-        memoGame.flip(aTileWithDifferentSymbol);
-        memoGame.check();
+        memoGame.faceUp(aTile);
+        memoGame.faceUp(aTileWithDifferentSymbol);
 
         expect(memoGame.facingUpTiles().length).toBe(0)
     });
