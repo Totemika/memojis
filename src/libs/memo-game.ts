@@ -66,7 +66,7 @@ export class MemoGame {
             tiles.push(new Tile(i, tiles.length+1));
             tiles.push(new Tile(i, tiles.length+1));
         }
-        return tiles;
+        return MemoGame.shuffle(tiles);
     };
 
     private flip(tile: Tile){
@@ -75,5 +75,13 @@ export class MemoGame {
         if(theTile){
             theTile.flip();
         }
+    }
+
+    private static shuffle(a: Tile[]) {
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
     }
 }

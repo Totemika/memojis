@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import './Memojis.css';
 import CardGrid from "../CardGrid/CardGrid";
 import {MemoGame} from "../../libs/memo-game";
