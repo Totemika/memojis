@@ -40,13 +40,10 @@ export class MemoGame {
         if(theTile.isFacingDown()){
             theTile.flip();
             this.state.checkingTiles.push(theTile);
-            if(this.state.checkingTiles.length===2){
-                this.check();
-            }
         }
     }
 
-    private check() {
+    public check() {
         if(this.state.checkingTiles.length === 2) {
             const first = this.state.checkingTiles[0];
             const second = this.state.checkingTiles[1];

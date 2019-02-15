@@ -31,12 +31,24 @@ class Memojis extends React.Component<{},MemojisState> {
     }
 
     private onCardClicked = (cardId: number) => {
-        this.memoGame.faceUpTile(this.memoGame.getTileById(cardId));
+        let selectedCard = this.memoGame.getTileById(cardId);
+        this.memoGame.faceUpTile(selectedCard);
+        this.updateViewWithGameState();
+
+        if(this.memoGame.getFacingUpTiles().length > 1) {
+            this.memoGame.check();
+            setTimeout(()=> {
+                this.updateViewWithGameState();
+            }, 1000);
+        }
+    };
+
+    private updateViewWithGameState() {
         this.setState({
             ...this.state,
             contentCollection: fromTilesToCardVM(this.memoGame.getAllTiles())
         })
-    };
+    }
 }
 
 export default Memojis;

@@ -41,6 +41,7 @@ describe('For a game with one symbol', () => {
 
         memoGame.faceUpTile(memoGame.getTileAt(0));
         memoGame.faceUpTile(memoGame.getTileAt(1));
+        memoGame.check();
 
         expect(memoGame.isGameFinished()).toBe(true);
     });
@@ -55,6 +56,7 @@ describe('For a game with two symbols', () => {
 
         memoGame.faceUpTile(aTile);
         memoGame.faceUpTile(aTileWithDifferentSymbol);
+        memoGame.check();
 
         expect(memoGame.getFacingUpTiles().length).toBe(0)
     });
@@ -66,6 +68,7 @@ describe('For a game with two symbols', () => {
 
         memoGame.faceUpTile(aTile);
         memoGame.faceUpTile(aTileWithSameSymbol);
+        memoGame.check();
 
         expect(memoGame.getFacingUpTiles().length).toBe(2)
     });
@@ -81,6 +84,7 @@ describe('For a game with two symbols', () => {
 
         memoGame.faceUpTile(aTile);
         memoGame.faceUpTile(aTileWithSameSymbol);
+        memoGame.check();
 
         const aFacingDownTile = getFacingDownTile(memoGame);
         memoGame.faceUpTile(aFacingDownTile);
