@@ -1,11 +1,12 @@
 import {MemoGame} from "./memo-game";
 import {Facing, Tile} from "./Tile";
 
+const context = describe;
 
-describe('Game setup', () => {
+describe('When creating a new Game', () => {
     const DEFAULT_SYMBOL_DIVERSITY = MemoGame.DEFAULT_SYMBOL_DIVERSITY;
 
-    it('should return all the tiles', () => {
+    it('should have as many tiles as twice the symbolDiversity', () => {
         const aSymbolDiversity = 6;
         const aMemoGame = new MemoGame(aSymbolDiversity);
 

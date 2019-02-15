@@ -3,6 +3,8 @@
 
 Just a pet project meant to try some things out.
 
+Try it out here: https://memojis-thkjzghyza.now.sh
+
 #### Quick start
 `yarn install`
 
