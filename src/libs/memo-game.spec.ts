@@ -9,14 +9,14 @@ describe('Game setup', () => {
         const aSymbolDiversity = 6;
         const aMemoGame = new MemoGame(aSymbolDiversity);
 
-        expect(aMemoGame.getTiles().length).toBe(aSymbolDiversity*2);
+        expect(aMemoGame.getAllTiles().length).toBe(aSymbolDiversity*2);
     });
 
     it('all the tiles should be facing down', () => {
         const aMemoGame = new MemoGame();
 
-        const facingUpTiles = aMemoGame.facingUpTiles();
-        const facingDownTiles = aMemoGame.facingDownTiles();
+        const facingUpTiles = aMemoGame.getFacingUpTiles();
+        const facingDownTiles = aMemoGame.getFacingDownTiles();
 
         expect(facingUpTiles.length).toBe(0);
         expect(facingDownTiles.length).toBe(DEFAULT_SYMBOL_DIVERSITY*2);
@@ -27,7 +27,7 @@ describe('Game setup', () => {
         const randomTile = getRandomTileFrom(aMemoGame);
         const previousFacing = randomTile.facing;
 
-        aMemoGame.faceUp(randomTile);
+        aMemoGame.faceUpTile(randomTile);
         const theRandomTile = aMemoGame.getTileById(randomTile.id);
 
         expect(previousFacing).toBe(Facing.DOWN);
@@ -39,10 +39,10 @@ describe('For a game with one symbol', () => {
     it('should win when flipping the only two tiles', () => {
         const memoGame = new MemoGame(1);
 
-        memoGame.faceUp(memoGame.getTileAt(0));
-        memoGame.faceUp(memoGame.getTileAt(1));
+        memoGame.faceUpTile(memoGame.getTileAt(0));
+        memoGame.faceUpTile(memoGame.getTileAt(1));
 
-        expect(memoGame.isFinished()).toBe(true);
+        expect(memoGame.isGameFinished()).toBe(true);
     });
 });
 
@@ -53,10 +53,10 @@ describe('For a game with two symbols', () => {
         const aTile = memoGame.getTileAt(0);
         const aTileWithDifferentSymbol = getTileWithDifferentSymbol(memoGame, aTile);
 
-        memoGame.faceUp(aTile);
-        memoGame.faceUp(aTileWithDifferentSymbol);
+        memoGame.faceUpTile(aTile);
+        memoGame.faceUpTile(aTileWithDifferentSymbol);
 
-        expect(memoGame.facingUpTiles().length).toBe(0)
+        expect(memoGame.getFacingUpTiles().length).toBe(0)
     });
 
     it('should leave facing up two tiles with same symbol', () => {
@@ -64,14 +64,14 @@ describe('For a game with two symbols', () => {
         const aTile = memoGame.getTileAt(0);
         const aTileWithSameSymbol = getTileWithSameSymbol(memoGame, aTile);
 
-        memoGame.faceUp(aTile);
-        memoGame.faceUp(aTileWithSameSymbol);
+        memoGame.faceUpTile(aTile);
+        memoGame.faceUpTile(aTileWithSameSymbol);
 
-        expect(memoGame.facingUpTiles().length).toBe(2)
+        expect(memoGame.getFacingUpTiles().length).toBe(2)
     });
 
     function getFacingDownTile(aMemoGame: MemoGame):Tile {
-        return aMemoGame.facingDownTiles()[0];
+        return aMemoGame.getFacingDownTiles()[0];
     }
 
     it('should leave facing up all tiles when solved', () => {
@@ -79,15 +79,15 @@ describe('For a game with two symbols', () => {
         const aTile = memoGame.getTileAt(0);
         const aTileWithSameSymbol = getTileWithSameSymbol(memoGame, aTile);
 
-        memoGame.faceUp(aTile);
-        memoGame.faceUp(aTileWithSameSymbol);
+        memoGame.faceUpTile(aTile);
+        memoGame.faceUpTile(aTileWithSameSymbol);
 
         const aFacingDownTile = getFacingDownTile(memoGame);
-        memoGame.faceUp(aFacingDownTile);
+        memoGame.faceUpTile(aFacingDownTile);
         const anotherFacingDownTile = getFacingDownTile(memoGame);
-        memoGame.faceUp(anotherFacingDownTile);
+        memoGame.faceUpTile(anotherFacingDownTile);
 
-        expect(memoGame.facingUpTiles().length).toBe(memoGame.symbolDiversity*2);
+        expect(memoGame.getFacingUpTiles().length).toBe(memoGame.symbolDiversity*2);
     });
 });
 
@@ -99,8 +99,8 @@ const getRandomTileFrom = (memoGame: MemoGame): Tile => {
 };
 const getTileWithDifferentSymbol = (aMemoGame: MemoGame, aTile: Tile):Tile =>
     aMemoGame
-        .getTiles()
+        .getAllTiles()
         .filter(tile => tile.symbol !== aTile.symbol)[0];
 const getTileWithSameSymbol = (aMemoGame: MemoGame, aTile:Tile) => aMemoGame
-    .getTiles()
+    .getAllTiles()
     .filter(tile => tile.symbol === aTile.symbol)[1];

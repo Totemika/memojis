@@ -22,19 +22,19 @@ export class MemoGame {
         return this.state.tiles.filter(tile=> tile.id === id)[0];
     }
 
-    getTiles (): Tile[]{
+    getAllTiles (): Tile[]{
         return this.state.tiles;
     };
 
-    facingUpTiles = ():Tile[]=>(this.state.tiles.filter(tile=> tile.isFacingUp()));
+    getFacingUpTiles = ():Tile[]=>(this.state.tiles.filter(tile=> tile.isFacingUp()));
 
-    facingDownTiles = ():Tile[]=>(this.state.tiles.filter(tile=> tile.isFacingDown()));
+    getFacingDownTiles = ():Tile[]=>(this.state.tiles.filter(tile=> tile.isFacingDown()));
 
-    isFinished() {
-      return this.state.tiles.length === this.facingUpTiles().length;
+    isGameFinished() {
+      return this.state.tiles.length === this.getFacingUpTiles().length;
     };
 
-    faceUp(tile: Tile){
+    faceUpTile(tile: Tile){
         const theTile= this.state.tiles.filter(item => item.id === tile.id)[0];
 
         if(theTile.isFacingDown()){

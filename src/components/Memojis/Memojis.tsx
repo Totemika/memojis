@@ -15,7 +15,7 @@ class Memojis extends React.Component<{},MemojisState> {
     constructor(props: any){
         super(props);
         this.state = {
-            contentCollection: fromTilesToCardVM(this.memoGame.getTiles())
+            contentCollection: fromTilesToCardVM(this.memoGame.getAllTiles())
         }
     }
 
@@ -31,10 +31,10 @@ class Memojis extends React.Component<{},MemojisState> {
     }
 
     private onCardClicked = (cardId: number) => {
-        this.memoGame.faceUp(this.memoGame.getTileById(cardId));
+        this.memoGame.faceUpTile(this.memoGame.getTileById(cardId));
         this.setState({
             ...this.state,
-            contentCollection: fromTilesToCardVM(this.memoGame.getTiles())
+            contentCollection: fromTilesToCardVM(this.memoGame.getAllTiles())
         })
     };
 }
